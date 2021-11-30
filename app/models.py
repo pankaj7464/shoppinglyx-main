@@ -28,7 +28,7 @@ class Product(models.Model):
     discription = models.TextField()
     brand = models.CharField(max_length=50)
     category = models.CharField(choices=CATEGOTY_CHOICES, max_length=2)
-    producat_image = models.ImageField(upload_to='product_img')
+    product_image = models.ImageField(upload_to='product_img')
 
     def __str__(self):
         return str(self.id)
