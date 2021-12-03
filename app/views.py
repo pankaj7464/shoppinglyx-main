@@ -14,8 +14,12 @@ class ProductView(View):
         return render(request, 'app/home.html',context)
 
 
-def product_detail(request):
- return render(request, 'app/productdetail.html')
+# def product_detail(request):
+#  return render(request, 'app/productdetail.html')
+class ProductDetailView(View):
+    def get(self,request,pk):
+        productview = Product.objects.get(pk = pk)
+        return render(request, 'app/productdetail.html',{'productview':productview})
 
 def add_to_cart(request):
  return render(request, 'app/addtocart.html')
@@ -35,8 +39,12 @@ def orders(request):
 def change_password(request):
  return render(request, 'app/changepassword.html')
 
-def mobile(request):
- return render(request, 'app/mobile.html')
+def mobile(request,data = None):
+    if data == None:
+        mobile = Product.objects.filter(category='m')
+    elif data == 'samsung' or data =='redmi':
+        mobile = Product.objects.filter(category='m').filter(brand= data)
+    return render(request, 'app/mobile.html',{'mobile':mobile})
 
 def login(request):
  return render(request, 'app/login.html')
