@@ -44,6 +44,10 @@ def mobile(request,data = None):
         mobile = Product.objects.filter(category='m')
     elif data == 'samsung' or data =='redmi':
         mobile = Product.objects.filter(category='m').filter(brand= data)
+    elif data == 'bellow':
+        mobile = Product.objects.filter(category='m').filter(discounted_price__lt = 10000)
+    elif data == 'above':
+        mobile = Product.objects.filter(category='m').filter(discounted_price__gt = 10000)
     return render(request, 'app/mobile.html',{'mobile':mobile})
 
 def login(request):
