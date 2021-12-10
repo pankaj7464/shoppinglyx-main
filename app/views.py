@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views import View
 from .models import Customer,Cart,Product,OrderPlace
+from .forms import CustomerResistrationForm
+from django.contrib import messages
 
 # def home(request):
 #  return render(request, 'app/home.html')
@@ -50,11 +52,19 @@ def mobile(request,data = None):
         mobile = Product.objects.filter(category='m').filter(discounted_price__gt = 10000)
     return render(request, 'app/mobile.html',{'mobile':mobile})
 
-def login(request):
- return render(request, 'app/login.html')
+class CustomerResistrationView(View):
+    def get(self,request):
+        form = CustomerResistrationForm()
+        return render(request, 'app/customerregistration.html',{'form':form})
+    def post(self,request):
+        form = CustomerResistrationForm(request.POST)
+        if form.is_valid():
+            messages.success(request,'Congratulations!! Resistered Successfully...')
+            form.save()
+        return render(request, 'app/customerregistration.html',{'form':form})
+    
 
-def customerregistration(request):
- return render(request, 'app/customerregistration.html')
+
 
 def checkout(request):
  return render(request, 'app/checkout.html')
