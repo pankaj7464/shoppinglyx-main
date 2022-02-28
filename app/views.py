@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.views import View
 from .models import Customer,Cart,Product,OrderPlace
-from .forms import CustomerResistrationForm
+from .forms import CustomerResistrationForm ,CustomerProfileForm
 from django.contrib import messages
 
 # def home(request):
@@ -68,3 +68,15 @@ class CustomerResistrationView(View):
 
 def checkout(request):
  return render(request, 'app/checkout.html')
+
+class ProfileView(View):
+    def get(self,request):
+        form = CustomerProfileForm()
+        return render(request, 'app/profile.html',{'form':form})
+    def post(self,request):
+        form = CustomerProfileForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            
+            form.save()
+        return render(request, 'app/profile.html',{'form':form})
