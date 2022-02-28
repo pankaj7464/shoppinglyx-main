@@ -3,6 +3,8 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm, User
 from django.contrib.auth.models import User
 from django.utils.translation import gettext, gettext_lazy as _
 from django.contrib.auth import password_validation
+from .models import Customer
+from django.forms import ModelForm
 
 
 class CustomerResistrationForm(UserCreationForm):
@@ -43,3 +45,10 @@ class MySetPasswordForm(SetPasswordForm):
         attrs={'class': 'form-control', 'autocomplete': 'new-password', 'autofocus': True}), help_text=password_validation.password_validators_help_text_html())
     new_password2 = forms.CharField(label=_('Confirm New password'), strip=False, widget=forms.PasswordInput(
         attrs={'class': 'form-control', 'autocomplete': 'new-password', 'autofocus': True}))
+
+
+class CustomerProfileForm(ModelForm):
+    class Meta:
+        model = Customer
+        fields = ['user','name', 'locality','city', 'zipcode', 'state']
+        widgets = {'name': forms.TextInput(attrs={'class': 'form-control'}),'locality': forms.TextInput(attrs={'class': 'form-control'}),'city': forms.TextInput(attrs={'class': 'form-control'}),'state': forms.Select(attrs={'class': 'form-control'}),'zipcode': forms.NumberInput(attrs={'class': 'form-control'})}
