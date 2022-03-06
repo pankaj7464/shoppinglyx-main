@@ -50,5 +50,5 @@ class MySetPasswordForm(SetPasswordForm):
 class CustomerProfileForm(ModelForm):
     class Meta:
         model = Customer
-        fields = ['user','name', 'locality','city', 'zipcode', 'state']
+        fields = ['name', 'locality','city', 'zipcode', 'state']
         widgets = {'name': forms.TextInput(attrs={'class': 'form-control'}),'locality': forms.TextInput(attrs={'class': 'form-control'}),'city': forms.TextInput(attrs={'class': 'form-control'}),'state': forms.Select(attrs={'class': 'form-control'}),'zipcode': forms.NumberInput(attrs={'class': 'form-control'})}
